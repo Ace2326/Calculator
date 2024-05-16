@@ -1,48 +1,61 @@
-const display = document.getElementById('display');
+let display = document.getElementById('display');
+let memory = 0;
 
-function appendValue(value) {
-    display.value += value;
+function appendToDisplay(value) {
+  display.value += value;
 }
 
 function clearDisplay() {
-    display.value = '';
+  display.value = '';
 }
 
-function calculateResult() {
-    try {
-        let result = eval(display.value);
-        if (!Number.isFinite(result)) {
-            throw new Error('Invalid input');
-        }
-        display.value = result;
-    } catch (error) {
-        display.value = 'Error';
-        setTimeout(clearDisplay, 2000);
-    }
+function calculate() {
+  try {
+    let result = eval(display.value);
+    display.value = result;
+  } catch(error) {
+    display.value = 'Error';
+  }
 }
 
-function backspace() {
-    display.value = display.value.slice(0, -1);
+function squareRoot() {
+  try {
+    let result = Math.sqrt(eval(display.value));
+    display.value = result;
+  } catch(error) {
+    display.value = 'Error';
+  }
 }
 
-function clearAll() {
-    display.value = '';
-}
-
-function calculatePercentage() {
-    display.value = parseFloat(display.value) / 100;
-}
-
-function calculateSquareRoot() {
-    display.value = Math.sqrt(parseFloat(display.value));
+function percentage() {
+  try {
+    let result = eval(display.value) / 100;
+    display.value = result;
+  } catch(error) {
+    display.value = 'Error';
+  }
 }
 
 function addToMemory() {
-    display.memory = parseFloat(display.value);
+  try {
+    memory += parseFloat(display.value);
+  } catch(error) {
+    display.value = 'Error';
+  }
+}
+
+function subtractFromMemory() {
+  try {
+    memory -= parseFloat(display.value);
+  } catch(error) {
+    display.value = 'Error';
+  }
 }
 
 function recallMemory() {
-    if (display.memory) {
-        display.value = display.memory;
-    }
+  display.value = memory;
+}
+
+function clearMemory() {
+  memory = 0;
 }
